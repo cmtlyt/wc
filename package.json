@@ -1,0 +1,67 @@
+{
+  "name": "@cmtlyt/wc",
+  "type": "module",
+  "version": "0.0.0",
+  "packageManager": "pnpm@10.2.0",
+  "description": "web component 组件",
+  "author": {
+    "name": "cmtlyt",
+    "email": "cmtlyt@163.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "github",
+    "url": "git+https://github.com/cmtlyt/wc.git"
+  },
+  "keywords": [
+    "web component",
+    "svelte",
+    "svelte-component",
+    "component"
+  ],
+  "exports": {
+    ".": "./dist/index.js",
+    "./*": "./dist/*"
+  },
+  "module": "./dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite --config vite.demo.config.ts",
+    "build": "vite build",
+    "build:demo": "vite build --config vite.demo.config.ts",
+    "preview": "vite preview --config vite.demo.config.ts",
+    "check": "svelte-check --tsconfig ./tsconfig.app.json && tsc -p tsconfig.node.json",
+    "prepublishOnly": "npm run build",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^4.13.1",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@sveltejs/vite-plugin-svelte": "^5.0.3",
+    "@tsconfig/svelte": "^5.0.4",
+    "conventional-changelog-cli": "^5.0.0",
+    "esbuild": "^0.25.4",
+    "eslint": "^9.27.0",
+    "eslint-plugin-format": "^1.0.1",
+    "eslint-plugin-svelte": "^3.8.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.0.0",
+    "standard-changelog": "^7.0.1",
+    "svelte": "^5.28.1",
+    "svelte-check": "^4.1.6",
+    "typescript": "~5.8.3",
+    "vite": "^6.3.5"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "lint-staged": {
+    "*.{js,ts,svelte}": [
+      "eslint --fix"
+    ]
+  }
+}
