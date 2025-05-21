@@ -20,18 +20,22 @@
     "component"
   ],
   "exports": {
-    ".": "./dist/index.js",
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.cjs"
+    },
     "./*": "./dist/*"
   },
+  "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
   "files": [
     "dist"
   ],
   "scripts": {
-    "dev": "vite --config vite.demo.config.ts",
-    "build": "vite build",
-    "build:demo": "vite build --config vite.demo.config.ts",
-    "preview": "vite preview --config vite.demo.config.ts",
+    "dev": "vite",
+    "build": "esno ./scripts/build.ts",
+    "build:example": "vite build",
+    "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.app.json && tsc -p tsconfig.node.json",
     "prepublishOnly": "npm run build",
     "prepare": "husky"
@@ -47,6 +51,7 @@
     "eslint": "^9.27.0",
     "eslint-plugin-format": "^1.0.1",
     "eslint-plugin-svelte": "^3.8.2",
+    "esno": "^4.8.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.0.0",
     "standard-changelog": "^7.0.1",

@@ -6,8 +6,23 @@
     <title>Document</title>
   </head>
   <body>
+    <div id="app"></div>
+    <!-- 打包 umd 结果测试示例 -->
+    <!-- <script src="/dist/index.umd.cjs"></script> -->
     <script type="module">
-      import '../dist';
+      // 打包结果测试示例
+      // import './public/dist';
+      // import './public/dist/counter';
+      // import counter from './public/dist/counter';
+      // import { mount } from './public/dist';
+      // mount(counter, {
+      //   target: app,
+      //   props: {
+      //     'init-value': 10,
+      //   },
+      // });
+      // 本地测试示例
+      import '../src';
     </script>
     <my-counter init-value="10" />
   </body>
