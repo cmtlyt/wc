@@ -2,12 +2,16 @@
 
 <script lang='ts'>
   import Span from '../components/span.svelte';
+  import { pt } from '../utils/props-transform';
 
-  const { 'init-value': initValue = 0 } = $props();
+  const props = $props();
+  const { initValue = 0, disable = false } = pt(props, ['initValue|number', 'disable|boolean']);
 
-  let count: number = $state(Number(initValue));
+  let count: number = $state(initValue);
 
   const increment = () => {
+    if (disable)
+      return;
     count += 1;
   };
 </script>
