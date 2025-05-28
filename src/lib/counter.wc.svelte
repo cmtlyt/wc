@@ -5,9 +5,9 @@
   import { pt } from '../utils/props-transform';
 
   const props = $props();
-  const { initValue = 0, disable = false } = pt(props, ['initValue|number', 'disable|boolean']);
+  const { initValue = 0, disable = false } = pt(props, ['initValue|number', 'disable|boolean'] as const);
 
-  let count: number = $state(initValue);
+  let count = $state(initValue);
 
   const increment = () => {
     if (disable)

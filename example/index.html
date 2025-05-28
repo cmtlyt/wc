@@ -4,12 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      .gap {
+        height: 150vh;
+      }
+    </style>
   </head>
   <body>
     <div id="app"></div>
     <!-- 打包 umd 结果测试示例 -->
-    <!-- <script src="/dist/index.umd.cjs"></script> -->
+    <!-- <script src="/dist/index.umd.cjs" defer></script> -->
+
+    <!-- 打包 es 结果测试示例 -->
+    <!-- <script type="module" src="/dist/index.js"></script> -->
+
+    <!-- 开发测试示例 -->
     <script type="module">
+      import '../src';
+    </script>
+    <!-- <script type="module">
       // 打包结果测试示例
       // import './public/dist';
       // import './public/dist/counter';
@@ -22,8 +35,28 @@
       //   },
       // });
       // 本地测试示例
-      import '../src';
+      // import '../src';
+    </script> -->
+    <my-counter init-value="10" disable></my-counter>
+    <appear-box id="appear-1">
+      <div>1</div>
+    </appear-box>
+    <div class="gap"></div>
+    <appear-box id="appear-2">
+      <div>2</div>
+    </appear-box>
+    <div class="gap"></div>
+    <appear-box id="appear-3">
+      <div>3</div>
+    </appear-box>
+    <div class="gap"></div>
+    <script>
+      document.querySelectorAll('appear-box').forEach((el) => {
+        el.addEventListener('appear', (e) => console.debug(e.type, e.target.id));
+        el.addEventListener('firstappear', (e) => console.debug(e.type, e.target.id));
+        el.addEventListener('disappear', (e) => console.debug(e.type, e.target.id));
+        el.addEventListener('firstdisappear', (e) => console.debug(e.type, e.target.id));
+      });
     </script>
-    <my-counter init-value="10" disable />
   </body>
 </html>

@@ -23,11 +23,16 @@ function minifyEs(): Plugin {
   };
 }
 
+const config = {
+  root: path.resolve(__dirname, '..', 'src'),
+  outDir: path.resolve(__dirname, '..', 'dist'),
+};
+
 async function buildEs() {
   return build({
-    root: './src/',
+    root: config.root,
     build: {
-      outDir: '../dist',
+      outDir: config.outDir,
       lib: {
         entry: './index.ts',
         fileName: 'index',
@@ -58,9 +63,9 @@ async function buildEs() {
 
 async function buildUmd() {
   return build({
-    root: './src/',
+    root: config.root,
     build: {
-      outDir: '../dist',
+      outDir: config.outDir,
       lib: {
         entry: './index.ts',
         fileName: 'index',
@@ -74,7 +79,6 @@ async function buildUmd() {
     },
     plugins: [
       svelte(),
-      minifyEs(),
     ],
   });
 }
