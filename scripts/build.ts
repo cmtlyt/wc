@@ -2,6 +2,7 @@ import type { Plugin } from 'vite';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { noop } from '@cmtlyt/base';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { transform } from 'esbuild';
 import { build } from 'vite';
@@ -105,5 +106,5 @@ async function createSymLink(pathName: string) {
   console.time('[UMD] Built.');
   await buildUmd();
   console.timeEnd('[UMD] Built.');
-  await createSymLink('public/dist');
+  await createSymLink('public/dist').catch(noop);
 })();
