@@ -1,0 +1,23 @@
+name: 💬 讨论
+description: 开始关于框架的讨论
+title: '[讨论]: 讨论标题'
+labels: [discussion]
+assignees: []
+body:
+  - type: textarea
+    id: topic
+    attributes:
+      label: 讨论主题
+      description: 请提供一个清晰简洁的讨论主题。
+    validations:
+      required: true
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: 截图
+      description: 如果适用，添加截图以帮助解释您的主题。
+  - type: textarea
+    id: links
+    attributes:
+      label: 链接
+      description: 包含任何可以为讨论提供更多上下文的相关链接。
