@@ -31,9 +31,9 @@ function parseFlag(flag: TransFlag): TransFlag & object {
 function getParseHandler(key: string, _type: AllType | undefined): ((v: any) => any) {
   switch (_type) {
     case 'number':
-      return v => Number(v);
+      return v => v == null ? v : Number(v);
     case 'string':
-      return v => String(v);
+      return v => v == null ? v : String(v);
     case 'boolean':
       return v => v === 'true' || typeof v !== 'undefined';
     case 'json':
@@ -74,7 +74,7 @@ type TransRecord<F extends TransFlag[], O extends Record<string, any>, R = Recor
     ? R
     : F extends [infer I extends TransFlag, ...infer L extends TransFlag[]]
       ? GetPropInfo<I, O> extends { key: infer K extends string; type: infer T }
-        ? TransRecord<L, O, R & Record<K, T>>
+        ? TransRecord<L, O, R & Record<K, () => T>>
         : TransRecord<L, O, R>
       : R;
 
@@ -85,7 +85,7 @@ type GetTransKeys<F extends TransFlag[]> = F extends [infer I extends TransFlag,
   : never;
 
 interface RestRecord<T extends Record<string, any>, F extends TransFlag[], I extends (keyof T)[]> {
-  rest: Printify<
+  rest: () => Printify<
     I extends []
       ? TExclude<T, GetTransKeys<F>>
       : TExclude<T, GetTransKeys<F> | I[number]>
@@ -116,14 +116,14 @@ export function propsTransform<
      *   key: 'onappear'
      *   key: 'on-appear'
      */
-    result[key] = transform(props[key] || props[key.toLowerCase()] || props[getKey(key)]);
+    result[key] = () => transform(props[key] || props[key.toLowerCase()] || props[getKey(key)]);
   });
 
   const keys = new Set(Object.keys(props));
 
   (restIgnore || []).forEach(rik => keys.delete(rik as any));
 
-  result.rest = Object.fromEntries(keys.entries().map(([key]) => [key, props[key]]));
+  result.rest = () => Object.fromEntries(keys.entries().map(([key]) => [key, props[key]]));
 
   return result as any;
 }
