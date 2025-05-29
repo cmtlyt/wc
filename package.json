@@ -40,6 +40,9 @@
     "prepublishOnly": "npm run build",
     "prepare": "husky"
   },
+  "dependencies": {
+    "@cmtlyt/base": "^0.13.0"
+  },
   "devDependencies": {
     "@antfu/eslint-config": "^4.13.1",
     "@commitlint/cli": "^19.8.1",

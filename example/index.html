@@ -4,26 +4,85 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      .gap {
+        height: 150vh;
+      }
+    </style>
   </head>
   <body>
     <div id="app"></div>
     <!-- 打包 umd 结果测试示例 -->
-    <!-- <script src="/dist/index.umd.cjs"></script> -->
+    <!-- <script src="/dist/index.umd.cjs" defer></script> -->
+
+    <!-- 打包 es 结果测试示例 -->
+    <!-- <script type="module" src="/dist/index.js"></script> -->
+
+    <!-- 开发测试示例 -->
     <script type="module">
+      // import './public/dist';
+      import '../src';
+    </script>
+    <!-- <script type="module">
       // 打包结果测试示例
       // import './public/dist';
-      // import './public/dist/counter';
-      // import counter from './public/dist/counter';
+      // import './public/dist/lazy-image';
+      // import LazyImage from './public/dist/lazy-image';
       // import { mount } from './public/dist';
-      // mount(counter, {
+      // mount(LazyImage, {
       //   target: app,
       //   props: {
-      //     'init-value': 10,
+      //     onAppear: () => console.log('appear'),
       //   },
       // });
       // 本地测试示例
-      import '../src';
+      // import '../src';
+    </script> -->
+    <appear-box id="appear-1">
+      <div>1</div>
+    </appear-box>
+    <div class="gap"></div>
+    <style>
+      /* lazy-image {
+        width: 200px;
+        height: 300px;
+      } */
+      .image {
+        width: 200px;
+        height: 300px;
+      }
+    </style>
+    <lazy-image class="image" src="https://picsum.photos/200/300"></lazy-image>
+    <appear-box id="appear-2">
+      <div>2</div>
+    </appear-box>
+    <div class="gap"></div>
+    <appear-box id="appear-3">
+      <div>3</div>
+    </appear-box>
+    <div class="gap"></div>
+    <script>
+      document.querySelector('lazy-image').addEventListener('load', function (e) {
+        // console.debug('load', e, this);
+        console.debug('load');
+      });
+      document.querySelector('lazy-image').addEventListener('appear', (e) => {
+        console.debug('lazy-image appear', e);
+      });
+      document.querySelectorAll('appear-box').forEach((el, idx) => {
+        el.addEventListener('appear', (e) => console.debug(e.type, e.target.id));
+        el.addEventListener('firstappear', (e) => {
+          console.debug(e.type, e.target.id, idx);
+          if (idx === 2) {
+            console.debug('change src');
+            document.querySelector('lazy-image').src = 'https://picsum.photos/50/75';
+          } else if (idx === 0) {
+            document.querySelector('lazy-image').src = 'https://picsum.photos/100/150';
+          }
+        });
+        el.addEventListener('disappear', (e) => console.debug(e.type, e.target.id));
+        el.addEventListener('firstdisappear', (e) => console.debug(e.type, e.target.id));
+      });
     </script>
-    <my-counter init-value="10" disable />
   </body>
 </html>
